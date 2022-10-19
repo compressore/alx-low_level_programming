@@ -1,13 +1,19 @@
 #include <stdio.h>
-/* Prints the alphabet in lowercase. */
+#include <ctype.h>
+/**
+*main - Program to print alphabet letter followed by new line
+*
+*Return: return 0
+*/
 int main(void)
 {
-	char letter;
-
+	int letter;
+	
 	for (letter = 'a'; letter <= 'z'; letter++)
+	{
+		letter = tolower(letter);
 		putchar(letter);
-
+	}
 	putchar('\n');
-
 	return (0);
 }
