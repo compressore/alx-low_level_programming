@@ -4,17 +4,17 @@
  * @nld: number's last digit result
  * Return: value of the last digit
  */
-int print_last_digit(int nld)
+int print_last_digit(int x)
 {
-	int pld;
+	int num;
 
-	pld = (nld % 10);
+	num = (x % 10);
 
-	if (pld < 0)
+	if (num < 0)
 	{
-		pld = (-1 * pld);
+		num = (-1 * num);
 	}
 
-	_putchar(pld + '0');
-	return (pld);
+	_putchar(num + '0');
+	return (num);
 }
