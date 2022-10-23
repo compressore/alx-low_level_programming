@@ -14,3 +14,4 @@
 13.101-natural.c
 14.Write a program that prints the first 50 Fibonacci numbers, starting with 1 and 2, followed by a new line
 103-fibonacci.c
+Write a program that finds and prints the first 98 Fibonacci numbers, starting with 1 and 2, followed by a new line
