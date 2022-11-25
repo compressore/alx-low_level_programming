@@ -6,3 +6,4 @@
 
 3. array_range
 Write a function that creates an array of integers.
+Write a program that multiplies two positive numbers.
