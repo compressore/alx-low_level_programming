@@ -1,53 +1,52 @@
-#include "main.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "holberton.h"
 
 /**
-  * str_concat - Concatenates two strings of any size
-  * @s1: the first string to concatenate
-  * @s2: the second string to concatenate
-  *
-  * Return: the two strings concatenated
-  */
+ * str_concat - concatenate two strings
+ * @s1: a pointer to the first string
+ * @s2: a pointer to the second string
+ *
+ * Return: NULL if memory allocation fails,
+ * otherwise a pointer to a the new string
+ */
 char *str_concat(char *s1, char *s2)
 {
-	int i = 0, j = 0, k = 0, l = 0;
-	char *s;
+	unsigned int len1 = 0;
+	unsigned int len2 = 0;
+	char *cat;
 
-	if (s1 == NULL)
-		s1 = "";
-
-	if (s2 == NULL)
-		s2 = "";
-
-	while (s1[i])
-		i++;
-
-	while (s2[j])
-		j++;
-
-	l = i + j;
-	s = malloc((sizeof(char) * l) + 1);
-
-	if (s == NULL)
-		return (NULL);
-
-	j = 0;
-
-	while (k < l)
+	if (s1)
 	{
-		if (k <= i)
-			s[k] = s1[k];
-
-		if (k >= i)
-		{
-			s[k] = s2[j];
-			j++;
-		}
-
-		k++;
+		while (s1[len1])
+			++len1;
+	}
+	else
+	{
+		s1 = "";
+	}
+	if (s2)
+	{
+		while (s2[len2])
+			++len2;
+	}
+	else
+	{
+		s2 = "";
 	}
 
-	s[k] = '\0';
-	return (s);
+	cat = (char *) malloc(sizeof(char) * (len1 + len2 + 1));
+
+	if (!cat)
+		return (NULL);
+	if (s1)
+	{
+		for (len1 = 0; s1[len1]; ++len1)
+			cat[len1] = s1[len1];
+	}
+	if (s2)
+	{
+		for (len2 = 0; s2[len2]; ++len2)
+			cat[len1 + len2] = s2[len2];
+	}
+	cat[len1 + len2] = '\0';
+	return (cat);
 }
