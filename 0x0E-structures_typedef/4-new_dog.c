@@ -1,85 +1,76 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "dog.h"
 
 /**
- * _strlen - function that returns the length of a string.
- * @s: variable pointer
- * Return: cont
+ * _strdup - create a new array containing a copy of the given string
+ * @str: a pointer to the string to copy
+ *
+ * Return: NULL if str is NULL or if memory allocation fails,
+ * otherwise a return a pointer to the new copy
  */
-int _strlen(char *s)
+char *_strdup(char *str)
 {
-	int cont = 0;
+	char *dup;
+	unsigned int size = 0;
 
-	while (s[cont] != '\0')
+	if (str)
 	{
-		cont++;
+		while (str[size++])
+			;
+
+		dup = malloc(sizeof(char) * size);
+		if (dup)
+		{
+			while (size--)
+				dup[size] = str[size];
+
+			return (dup);
+		}
 	}
-	return (cont);
+	return (NULL);
 }
 
 /**
-* *_strncpy - that copies a string
-* @dest: variable 1
-* @src: variable 2
-* @n: variable bytes
-* Return: dest
-*/
-char *_strncpy(char *dest, char *src, int n)
-{
-int i;
-
-for (i = 0; i < n && src[i] != '\0'; i++)
-{
-dest[i] = src[i];
-}
-for (; i < n; i++)
-{
-dest[i] = '\0';
-}
-return (dest);
-}
-
-/**
- * *new_dog - that creates a new dog
- * @name: char
- * @age: float
- * @owner: char
- * Return: new pointer
+ * new_dog - create a new dog
+ * @name: the new dog's name
+ * @age: the new dog's age
+ * @owner: the new dog's owner
+ *
+ * Return: a pointer to the new dog, or NULL if memory allocation fails
  */
-
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *ptr;
-	int len1, len2;
+	dog_t *d;
 
-	if (name == NULL || owner == NULL)
+	d = malloc(sizeof(dog_t));
+	if (!d)
 		return (NULL);
-	ptr = malloc(sizeof(dog_t));
-		if (ptr == NULL)
+
+	if (name)
+	{
+		d->name = _strdup(name);
+		if (!(d->name))
+		{
+			free(d);
 			return (NULL);
-
-	len1 = _strlen(name);
-	len2 = _strlen(owner);
-
-	ptr->name = malloc(sizeof(char) * (len1 + 1));
-	if (ptr->name == NULL)
-	{
-		free(ptr);
-		return (NULL);
+		}
 	}
+	else
+		d->name = NULL;
 
-	ptr->owner = malloc(sizeof(char) * (len2 + 1));
-	if (ptr->owner == NULL)
+	d->age = age;
+
+	if (owner)
 	{
-		free(ptr->name);
-		free(ptr);
-		return (NULL);
+		d->owner = _strdup(owner);
+		if (!(d->owner))
+		{
+			free(d->name);
+			free(d);
+			return (NULL);
+		}
 	}
+	else
+		d->owner = NULL;
 
-	ptr->name = _strncpy(ptr->name, name, len1 + 1);
-	ptr->name = _strncpy(ptr->owner, owner, len2 + 1);
-	ptr->age = age;
-
-	return (ptr);
+	return (d);
 }
