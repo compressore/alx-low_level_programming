@@ -1,32 +1,43 @@
-#include "main.h"
-#include <stdlib.h>
+#include "holberton.h"
 
 /**
-  * _calloc - ...
-  * @nmemb: number of members
-  * @size: size
-  *
-  * Return: ...
-  */
+ * _memset - fill memory with a constant byte
+ * @s: a pointer to a memory area
+ * @b: the byte to write to memory
+ * @n: the number of bytes to write
+ *
+ * Return: a pointer to the memory area s
+ */
+char *_memset(char *s, char b, unsigned int n)
+{
+	unsigned int i;
+
+	for (i = 0; i < n; ++i)
+		s[i] = b;
+	return (s);
+}
+
+
+/**
+ * _calloc - dynamically allocate memory for an array and initialize it to zero
+ * @nmemb: the number of array members
+ * @size: the size of each array member
+ *
+ * Return: If memory allocation fails or either argument is zero, return NULL.
+ * Otherwise, return a pointer to the newly allocated memory.
+ */
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	int i = 0, l = 0;
-	char *p;
+	void *ptr;
 
-	if (nmemb == 0 || size == 0)
+	if (!(nmemb && size))
 		return (NULL);
 
-	l = nmemb * size;
-	p = malloc(l);
-
-	if (p == NULL)
+	ptr = malloc(nmemb * size);
+	if (!ptr)
 		return (NULL);
 
-	while (i < l)
-	{
-		p[i] = 0;
-		i++;
-	}
+	_memset(ptr, 0, nmemb * size);
 
-	return (p);
+	return (ptr);
 }

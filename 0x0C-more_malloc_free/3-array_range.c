@@ -1,31 +1,30 @@
-#include "main.h"
-#include <stdlib.h>
+#include "holberton.h"
 
 /**
-  * array_range - ...
-  * @min: ...
-  * @max: ...
-  *
-  * Return: integer value
-  */
+ * array_range - create an array of integers containing a range of values
+ * @min: the lower bound (included)
+ * @max: the upper bound (included)
+ *
+ * Return: If memory allocation fails or max is less than max, return NULL.
+ * Otherwise, return the newly created array.
+ */
 int *array_range(int min, int max)
 {
-	int *a, i = 0;
+	int *range;
+	unsigned int width;
 
-	if (min > max)
+	if (max < min)
 		return (NULL);
 
-	a = malloc((sizeof(int) * (max - min)) + sizeof(int));
+	width = max - min;
 
-	if (a == NULL)
+	range = malloc(sizeof(int) * (width + 1));
+	if (!range)
 		return (NULL);
 
-	while (min <= max)
-	{
-		a[i] = min;
-		i++;
-		min++;
-	}
+	do {
+		*range++ = min++;
+	} while (min <= max);
 
-	return (a);
+	return (range - width - 1);
 }
